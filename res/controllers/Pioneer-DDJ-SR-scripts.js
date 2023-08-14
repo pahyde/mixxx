@@ -16,20 +16,76 @@ DDJSR.init = function (id, debugging) {
 
 DDJSR.Deck = function(deckNumber, midiChannel) {
     components.Deck.call(this, deckNumber);
-    this.play = new components.PlayButton([0x90 + midiChannel, 0x0B]);
-    this.cue = new components.CueButton([0x90 + midiChannel, 0x0C]);
+
+    var currDeck = this;
+
+    this.play = new components.PlayButton({
+        midi: [0x90 + midiChannel, 0x0B],
+    });
+
+    this.cue = new components.CueButton({
+        midi: [0x90 + midiChannel, 0x0C],
+    });
+
     this.sync = new components.SyncButton([0x90 + midiChannel, 0x58]);
+    
+    this.load = new components.Button({
+        midi: [0x96, 0x46 + midiChannel],
+        inKey: 'LoadSelectedTrack'
+    })
+
+    this.keyLock = new components.Button({
+        midi: [0x90 + midiChannel, 0x1A],
+        key: 'keylock',
+        type: components.Button.prototype.types.toggle
+    })
+
     this.pfl = new components.Button({
         midi: [0x90 + midiChannel, 0x54],
         key: 'pfl',
     });
+
     this.hotcue = [];
-    for (var i = 1; i <= 8; i++) {
+    for (var i = 0; i < 8; i++) {
         this.hotcue[i] = new components.HotcueButton({
-            midi: [0x90 + 8 + midiChannel, 0x00 + i],
-            number: i,
+            midi: [0x90 + 7 + midiChannel, 0x00 + i],
+            number: i+1,
         });
     }
+
+    this.jogWheel = new components.JogWheelBasic({
+        deck: deckNumber, 
+        wheelResolution: 2048, 
+        alpha: 1/8,
+        inValueScale: function(value) {
+            return (value - 0x40);
+        },
+        inputTouch: function(channel, control, value, status, _group) {
+            if (this.isPress(channel, control, value, status) && this.vinylMode) {
+                this.scratchEnable();
+            } else {
+                this.scratchDisable();
+            }
+        },
+        inputWheel: function(_channel, _control, value, _status, _group) {
+            value = this.inValueScale(value);
+            if (engine.isScratching(this.deck)) {
+                engine.scratchTick(this.deck, value);
+            } else {
+                this.inSetValue(value / 4);
+            }
+        },
+        scratchEnable: function() {
+            engine.scratchEnable(this.deck,
+                this.wheelResolution,
+                this.rpm,
+                this.alpha,
+                this.beta);
+        },
+        scratchDisable: function() {
+            engine.scratchDisable(this.deck);
+        }
+    });
 
     this.reconnectComponents(function (c) {
         if (c.group === undefined) {
