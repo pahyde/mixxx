@@ -32,6 +32,46 @@
             </control>
             <control>
                 <group>[Channel1]</group>
+                <key>DDJSR.deck[0].shiftButton.input</key>
+                <description>Play Channel1</description>
+                <status>0x90</status>
+                <midino>0x3F</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].shiftButton.input</key>
+                <description>Play Channel2</description>
+                <status>0x91</status>
+                <midino>0x3F</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].shiftButton.input</key>
+                <description>Play Channel3</description>
+                <status>0x92</status>
+                <midino>0x3F</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].shiftButton.input</key>
+                <description>Play Channel4</description>
+                <status>0x93</status>
+                <midino>0x3F</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
                 <key>DDJSR.deck[0].play.input</key>
                 <description>Play Channel1</description>
                 <status>0x90</status>
@@ -72,6 +112,46 @@
             </control>
             <control>
                 <group>[Channel1]</group>
+                <key>DDJSR.deck[0].play.input</key>
+                <description>Play Channel1</description>
+                <status>0x90</status>
+                <midino>0x47</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].play.input</key>
+                <description>Play Channel2</description>
+                <status>0x91</status>
+                <midino>0x47</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].play.input</key>
+                <description>Play Channel3</description>
+                <status>0x92</status>
+                <midino>0x47</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].play.input</key>
+                <description>Play Channel4</description>
+                <status>0x93</status>
+                <midino>0x47</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
                 <key>DDJSR.deck[0].cue.input</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x90</status>
@@ -106,6 +186,86 @@
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x93</status>
                 <midino>0x0C</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].cue.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x90</status>
+                <midino>0x48</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].cue.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x91</status>
+                <midino>0x48</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].cue.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x92</status>
+                <midino>0x48</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].cue.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x93</status>
+                <midino>0x48</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].sync.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x90</status>
+                <midino>0x58</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].sync.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x91</status>
+                <midino>0x58</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].sync.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x92</status>
+                <midino>0x58</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].sync.input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x93</status>
+                <midino>0x58</midino>
                 <options>
                     <Script-Binding/>
                 </options>
@@ -746,6 +906,326 @@
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x07</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[0].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x10</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[1].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x11</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[2].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x12</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[3].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x13</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[4].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x14</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[5].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x15</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[6].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x16</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].roll[7].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x97</status>
+                <midino>0x17</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[0].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x10</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[1].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x11</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[2].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x12</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[3].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x13</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[4].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x14</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[5].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x15</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[6].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x16</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].roll[7].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x98</status>
+                <midino>0x17</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[0].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x10</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[1].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x11</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[2].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x12</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[3].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x13</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[4].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x14</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[5].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x15</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[6].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x16</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].roll[7].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x99</status>
+                <midino>0x17</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[0].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x10</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[1].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x11</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[2].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x12</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[3].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x13</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[4].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x14</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[5].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x15</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[6].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x16</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].roll[7].input</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x9A</status>
+                <midino>0x17</midino>
                 <options>
                     <Script-Binding/>
                 </options>

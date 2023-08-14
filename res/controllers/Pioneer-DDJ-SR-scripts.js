@@ -1,9 +1,6 @@
-/*
- * MIDI script for the Pioneer DDJ-SR controller
-*/
-
 var DDJSR = {};
 
+DDJSR.looprollIntervals = [1/16, 1/8, 1/4, 1/2, 1, 2, 4, 8];
 
 DDJSR.init = function (id, debugging) {
     //initialize decks
@@ -19,15 +16,38 @@ DDJSR.Deck = function(deckNumber, midiChannel) {
 
     var currDeck = this;
 
+    this.shiftButton = new components.Button({
+        midi: [0x90 + midiChannel, 0x3F],
+        type: 0,
+        input: function(channel, control, value, status, group) {
+            if (value > 0) {
+                currDeck.shift();
+            } else {
+                currDeck.unshift();
+            }
+        }
+    })
+
     this.play = new components.PlayButton({
         midi: [0x90 + midiChannel, 0x0B],
+        shiftOffset: 0x3C,
+        shiftControl: true,
+        sendShifted: true
     });
 
     this.cue = new components.CueButton({
         midi: [0x90 + midiChannel, 0x0C],
+        shiftOffset: 0x3C,
+        shiftControl: true,
+        sendShifted: true
     });
 
-    this.sync = new components.SyncButton([0x90 + midiChannel, 0x58]);
+    this.sync = new components.SyncButton({
+        midi: [0x90 + midiChannel, 0x58],
+        shiftOffset: 4,
+        shiftControl: true,
+        sendShifted: true,
+    });
     
     this.load = new components.Button({
         midi: [0x96, 0x46 + midiChannel],
@@ -50,6 +70,15 @@ DDJSR.Deck = function(deckNumber, midiChannel) {
         this.hotcue[i] = new components.HotcueButton({
             midi: [0x90 + 7 + midiChannel, 0x00 + i],
             number: i+1,
+        });
+    }
+
+    this.roll = [];
+    for (var i = 0; i < 8; i++) {
+        this.roll[i] = new components.Button({
+            midi: [0x90 + 7 + midiChannel, 0x10 + i],
+            number: i+1,
+            key: 'beatlooproll_' + DDJSR.looprollIntervals[i] + '_activate'
         });
     }
 

@@ -293,7 +293,7 @@ PioneerDDJSB3.Deck = function(deckNumber) {
     var theDeck = this;
     this.group = "[Channel" + deckNumber + "]";
 
-    this.shiftButton = function(channel, control, value, status, group) {
+    this.shift = function(channel, control, value, status, group) {
         var i;
         if (value > 0) {
             theDeck.shift();
