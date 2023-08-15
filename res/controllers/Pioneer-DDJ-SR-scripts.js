@@ -1,14 +1,11 @@
 var DDJSR = {};
 
-DDJSR.looprollIntervals = [1/16, 1/8, 1/4, 1/2, 1, 2, 4, 8];
-
 DDJSR.init = function (id, debugging) {
     //initialize decks
     DDJSR.deck = [];
     for (var i = 0; i < 4; i++) {
         DDJSR.deck.push(new DDJSR.Deck(i+1, i));
     }
-
 }
 
 DDJSR.Deck = function(deckNumber, midiChannel) {
@@ -70,24 +67,28 @@ DDJSR.Deck = function(deckNumber, midiChannel) {
         key: 'pfl',
     });
 
-    this.hotcue = [];
-    for (var i = 0; i < 8; i++) {
-        this.hotcue[i] = new components.HotcueButton({
-            midi: [0x90 + 7 + midiChannel, 0x00 + i],
-            number: i+1,
-        });
-    }
+    this.pad = new DDJSR.pad(deckNumber, midiChannel);
+    this.jogWheel = new DDJSR.jogWheel(deckNumber);
 
-    this.roll = [];
-    for (var i = 0; i < 8; i++) {
-        this.roll[i] = new components.Button({
-            midi: [0x90 + 7 + midiChannel, 0x10 + i],
-            number: i+1,
-            key: 'beatlooproll_' + DDJSR.looprollIntervals[i] + '_activate'
-        });
-    }
+    this.reconnectComponents(function (c) {
+        if (c.group === undefined) {
+            // 'this' inside a function passed to reconnectComponents refers to the ComponentContainer
+            // so 'this' refers to the custom Deck object being constructed
+            c.group = this.currentDeck;
+        }
+    });
+}
 
-    this.jogWheel = new components.JogWheelBasic({
+DDJSR.Deck.prototype = new components.Deck();
+
+
+///////////////////////////////////////////////////////////
+//                     Jog Wheel                         //
+///////////////////////////////////////////////////////////
+
+DDJSR.jogWheel = function(deckNumber) {
+
+    return new components.JogWheelBasic({
         deck: deckNumber, 
         wheelResolution: 2048, 
         alpha: 1/8,
@@ -120,17 +121,105 @@ DDJSR.Deck = function(deckNumber, midiChannel) {
             engine.scratchDisable(this.deck);
         }
     });
+}
+
+
+///////////////////////////////////////////////////////////
+//                   Performance Pads                    //
+///////////////////////////////////////////////////////////
+
+DDJSR.padMode = {
+    hotCue: 0,
+    roll: 1,
+    slicerCont: 2,
+    slicerLoop: 3,
+    sampler: 4,
+}
+
+DDJSR.looprollIntervals = [1/16, 1/8, 1/4, 1/2, 1, 2, 4, 8];
+
+DDJSR.pad = function(deckNumber, midiChannel) {
+    components.ComponentContainer.call(this, null);
+
+    var padState = { 
+        mode: DDJSR.padMode.hotCue 
+    }
+
+    this.setMode = function(channel, control, value, status, group) {
+        if (value === 0) {
+            // button release
+            return;
+        }
+        switch (control) {
+        // HOT CUE
+        case 0x1B:
+            padState.mode = DDJSR.padMode.hotCue;
+            break;
+        // ROLL
+        case 0x1E:
+            padState.mode = DDJSR.padMode.roll;
+            break;
+        // SLICER
+        case 0x20:
+            if (padState.mode == DDJSR.padMode.slicerCont) {
+                padState.mode = DDJSR.padMode.slicerLoop;
+            } else {
+                padState.mode = DDJSR.padMode.slicerCont;
+            }
+            break;
+        // SAMPLER
+        case 0x22:
+            padState.mode = DDJSR.padMode.sampler;
+            break;
+        }
+    }
+
+    this.hotcue = [];
+    for (var i = 0; i < 8; i++) {
+        this.hotcue[i] = new components.HotcueButton({
+            midi: [0x90 + 7 + midiChannel, 0x00 + i],
+            number: i+1,
+        });
+    }
+
+    this.roll = [];
+    for (var i = 0; i < 8; i++) {
+        this.roll[i] = new components.Button({
+            midi: [0x90 + 7 + midiChannel, 0x10 + i],
+            number: i+1,
+            key: 'beatlooproll_' + DDJSR.looprollIntervals[i] + '_activate',
+            inSetValue: function(value) {
+                engine.setValue(this.group, 'quantize', value);
+                engine.setValue(this.group, this.inKey, value);
+            },
+        });
+    }
+
+    this.slicer = new DDJSR.Slicer(deckNumber, padState);
 
     this.reconnectComponents(function (c) {
         if (c.group === undefined) {
-            // 'this' inside a function passed to reconnectComponents refers to the ComponentContainer
-            // so 'this' refers to the custom Deck object being constructed
-            c.group = this.currentDeck;
+            c.group = deckNumberToGroup(deckNumber);
         }
     });
 }
 
-DDJSR.Deck.prototype = new components.Deck();
+DDJSR.pad.prototype = components.ComponentContainer.prototype;
+
+DDJSR.Slicer = function(deckNumber, padState) {
+    var sliceIndex = 0;
+
+    components.Component.call(this, {
+        group: deckNumberToGroup(deckNumber),
+        outKey: 'beat_active',
+        output: function() {
+            engine.log(sliceIndex++);
+        }
+    })
+
+}
+
+DDJSR.Slicer.prototype = components.Component.prototype;
 
 
 ///////////////////////////////////////////////////////////
@@ -165,4 +254,8 @@ DDJSR.shutdown = function() {
         //midi.sendShortMsg(0x91, i, 0x00);
     }
 
+}
+
+function deckNumberToGroup(deckNumber) {
+    return '[Channel' + deckNumber + ']';
 }
