@@ -577,7 +577,6 @@
                 if (typeof operation === "function") {
                     operation.call(this, component);
                 }
-
                 component.connect();
                 component.trigger();
             }, recursive);
