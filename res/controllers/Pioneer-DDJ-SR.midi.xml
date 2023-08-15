@@ -232,6 +232,86 @@
             </control>
             <control>
                 <group>[Channel1]</group>
+                <key>DDJSR.deck[0].tempoFader.inputMSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB0</status>
+                <midino>0x00</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].tempoFader.inputMSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB1</status>
+                <midino>0x00</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].tempoFader.inputMSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB2</status>
+                <midino>0x00</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].tempoFader.inputMSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB3</status>
+                <midino>0x00</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].tempoFader.inputLSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB0</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[1].tempoFader.inputLSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB1</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[2].tempoFader.inputLSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB2</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[3].tempoFader.inputLSB</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0xB3</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
                 <key>DDJSR.deck[0].sync.input</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x90</status>

@@ -28,6 +28,11 @@ DDJSR.Deck = function(deckNumber, midiChannel) {
         }
     })
 
+    this.tempoFader = new components.Pot({
+        inKey: "rate",
+        invert: true,
+    });
+
     this.play = new components.PlayButton({
         midi: [0x90 + midiChannel, 0x0B],
         shiftOffset: 0x3C,
