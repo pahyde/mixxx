@@ -217,6 +217,7 @@ DDJSR.slicerMode = {
 DDJSR.Slicer = function(deckNumber, padState) {
     components.Component.call(this, {
         group: deckNumberToGroup(deckNumber),
+        channel: deckNumber-1,
         mode: DDJSR.slicerMode.continuous,
         syncConnection: null,
         lookAheadMargin: 0,
@@ -277,60 +278,81 @@ DDJSR.Slicer = function(deckNumber, padState) {
 
         var currPos = engine.getValue(this.group, 'playposition');
         var sliceIndex = currPos < sliceStartPos ? -2 : -1;
-        var prevBeat = sliceIndex;
+        var activeBeat = sliceIndex;
 
+        var beatUpdate = false;
         var loopOn = false;
         engine.setValue(this.group, 'quantize', true);
         engine.setValue(this.group, 'beatloop_size', 1);
 
+        /*
+        state varables:
+            - sliceStartPos: start position of the slice loop
+            - sliceIndex: 0 - 7
+            - activeBeat: the state of the current playing beat maintained by the slicer (relative to start position)
+            - trackBeat: the actual current beat playing in the track (relative to start position)
+            - this.sampledBeat: the user input beat to jump to
+        */
         this.syncConnection = engine.makeConnection(this.group, 'playposition', function(position) {
             var posOffset = position - sliceStartPos;
-            var currBeatFloat = posOffset / positionPerBeat + this.lookAheadMargin;
-            var currBeat = Math.floor(currBeatFloat);
-            var currBeatProgress = currBeatFloat - currBeat
-            if (!loopOn && currBeatProgress > 1/32) {
+            var trackBeatFloat = posOffset / positionPerBeat + this.lookAheadMargin;
+            var trackBeat = Math.floor(trackBeatFloat);
+            var trackBeatProgress = trackBeatFloat - trackBeat
+            if (beatUpdate && trackBeatProgress > 1/32) {
                 // set temporary loop as a visual cue
                 engine.setValue(this.group, 'beatloop_activate', true);
+                beatUpdate = false;
                 loopOn = true;
             } else if (loopOn) {
                 // loops only serve as a visual cue
                 // immediately exit any loops
                 this.loopExit();
+                loopOn = false;
             }
-            if (currBeat === prevBeat) {
+            if (trackBeat === activeBeat) {
                 // same beat, no change
                 return;
             }
-            loopOn = false;
             // new beat occurred
             // move to user input sampledBeat if non-null, otherwise next sliceIndex
+            beatUpdate = true;
             sliceIndex++;
-            var offset = 0;
             if (sliceIndex === 8) {
-                // handle end of slice loop
-                sliceIndex = 0;
+                sliceIndex -= 8
                 if (this.mode === DDJSR.slicerMode.continuous) {
-                    sliceStartPos = sliceStartPos + 8 * positionPerBeat;
-                    offset = 8;
-                } else {
-                    // set explicit sample to trigger loop back to start
-                    this.sampledBeat = this.sampledBeat || 0;
+                    sliceStartPos += 8 * positionPerBeat;
+                    activeBeat -= 8
+                    trackBeat -= 8
+                    // Note: sampledBeat gets rolled forward with start position. no update.
                 }
             }
-            var adjustedSliceIndex = sliceIndex + offset;
-            var adjustedSampledBeat = this.sampledBeat !== null ? this.sampledBeat + offset : null;
-            if (sliceIndex >= 0 && adjustedSampledBeat !== null && adjustedSampledBeat !== adjustedSliceIndex) {
-                this.jumpOffset(adjustedSampledBeat - currBeat);
-                currBeat = adjustedSampledBeat;
-            } else if (currBeat !== adjustedSliceIndex) {
-                this.jumpOffset(adjustedSliceIndex - currBeat);
-                currBeat = adjustedSliceIndex;
+
+            var userInputConsumed = false;
+            var nextActiveBeat = (function(sampledBeat, sliceIndex) {
+                if (sliceIndex < 0) {
+                    return sliceIndex;
+                }
+                if (sampledBeat !== null) {
+                    userInputConsumed = true;
+                    return sampledBeat
+                }
+                return sliceIndex;
+            })(this.sampledBeat, sliceIndex);
+
+            if (userInputConsumed) {
+                // sampledBeat occurred. clear for next slice
+                this.sampledBeat = null;
             }
-            currBeat = currBeat % 8;
-            this.sampledBeat = null;
-            this.setLED(prevBeat, this.mode === DDJSR.slicerMode.continuous ? 0 : 0x7F);
-            this.setLED(currBeat, this.mode === DDJSR.slicerMode.continuous ? 0x7F : 0);
-            prevBeat = currBeat;
+
+            if (nextActiveBeat !== trackBeat) {
+                this.jumpBeats(nextActiveBeat - trackBeat)
+            }
+
+            var activeLED = activeBeat < 0 ? activeBeat + 8 : activeBeat;
+            var nextActiveLED = nextActiveBeat;
+            this.setLED(slicer.channel, activeLED, this.mode === DDJSR.slicerMode.continuous ? 0 : 0x7F);
+            this.setLED(slicer.channel, nextActiveLED, this.mode === DDJSR.slicerMode.continuous ? 0x7F : 0);
+            activeBeat = nextActiveBeat;
         });
     }
 
@@ -344,11 +366,11 @@ DDJSR.Slicer = function(deckNumber, padState) {
         //engine.setValue(this.group, 'beatloop_activate', false);
     }
 
-    this.setLED = function(index, value) {
-        midi.sendShortMsg(0x97, 0x20 + index, value);
+    this.setLED = function(channel, index, value) {
+        midi.sendShortMsg(0x97 + channel, 0x20 + index, value);
     }
 
-    this.jumpOffset = function(offset) {
+    this.jumpBeats = function(offset) {
         engine.setValue(this.group, 'beatjump', offset);
     }
 

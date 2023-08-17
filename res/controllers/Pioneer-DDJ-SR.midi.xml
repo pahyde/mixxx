@@ -712,7 +712,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[1].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x91</status>
                 <midino>0x1B</midino>
@@ -722,7 +722,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[1].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x91</status>
                 <midino>0x1E</midino>
@@ -732,7 +732,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[1].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x91</status>
                 <midino>0x20</midino>
@@ -742,7 +742,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[1].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x91</status>
                 <midino>0x22</midino>
@@ -752,7 +752,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[2].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x92</status>
                 <midino>0x1B</midino>
@@ -762,7 +762,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[2].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x92</status>
                 <midino>0x1E</midino>
@@ -772,7 +772,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[2].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x92</status>
                 <midino>0x20</midino>
@@ -782,7 +782,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[2].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x92</status>
                 <midino>0x22</midino>
@@ -792,7 +792,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[3].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x93</status>
                 <midino>0x1B</midino>
@@ -802,7 +802,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[3].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x93</status>
                 <midino>0x1E</midino>
@@ -812,7 +812,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[3].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x93</status>
                 <midino>0x20</midino>
@@ -822,7 +822,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[0].pad.setMode</key>
+                <key>DDJSR.deck[3].pad.setMode</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x93</status>
                 <midino>0x22</midino>
