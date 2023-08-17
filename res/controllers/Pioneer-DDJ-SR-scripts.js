@@ -131,9 +131,8 @@ DDJSR.jogWheel = function(deckNumber) {
 DDJSR.padMode = {
     hotCue: 0,
     roll: 1,
-    slicerCont: 2,
-    slicerLoop: 3,
-    sampler: 4,
+    slicer: 2,
+    sampler: 3,
 }
 
 DDJSR.looprollIntervals = [1/16, 1/8, 1/4, 1/2, 1, 2, 4, 8];
@@ -146,31 +145,30 @@ DDJSR.pad = function(deckNumber, midiChannel) {
     }
 
     this.setMode = function(channel, control, value, status, group) {
-        if (value === 0) {
-            // button release
+        var isPress = value > 0;
+        if (!isPress) {
             return;
         }
-        switch (control) {
-        // HOT CUE
-        case 0x1B:
-            padState.mode = DDJSR.padMode.hotCue;
-            break;
-        // ROLL
-        case 0x1E:
-            padState.mode = DDJSR.padMode.roll;
-            break;
-        // SLICER
-        case 0x20:
-            if (padState.mode == DDJSR.padMode.slicerCont) {
-                padState.mode = DDJSR.padMode.slicerLoop;
+        if (control === 0x20) {
+            // handle slicer start
+            if (padState.mode === DDJSR.padMode.slicer) {
+                this.slicer.modeToggle();
             } else {
-                padState.mode = DDJSR.padMode.slicerCont;
+                padState.mode = DDJSR.padMode.slicer;
+                this.slicer.setContinuousMode();
+                this.slicer.start();
             }
-            break;
-        // SAMPLER
-        case 0x22:
+            return;
+        }
+        if (padState.mode === DDJSR.padMode.slicer) {
+            this.slicer.stop();
+        }
+        if (control === 0x1B) {
+            padState.mode = DDJSR.padMode.hotCue;
+        } else if (control === 0x1E) {
+            padState.mode = DDJSR.padMode.roll;
+        } else if (control === 0x22) {
             padState.mode = DDJSR.padMode.sampler;
-            break;
         }
     }
 
@@ -206,17 +204,171 @@ DDJSR.pad = function(deckNumber, midiChannel) {
 
 DDJSR.pad.prototype = components.ComponentContainer.prototype;
 
-DDJSR.Slicer = function(deckNumber, padState) {
-    var sliceIndex = 0;
 
+///////////////////////////////////////////////////////////
+//                       Slicer                          //
+///////////////////////////////////////////////////////////
+
+DDJSR.slicerMode = {
+    continuous: 0,
+    loop: 1
+}
+
+DDJSR.Slicer = function(deckNumber, padState) {
     components.Component.call(this, {
         group: deckNumberToGroup(deckNumber),
-        outKey: 'beat_active',
-        output: function() {
-            engine.log(sliceIndex++);
-        }
-    })
+        mode: DDJSR.slicerMode.continuous,
+        syncConnection: null,
+        lookAheadMargin: 0,
+        isRunning: false,
+    });
 
+    var slicer = this;
+
+    this.modeToggle = function() {
+        if (this.mode === DDJSR.slicerMode.loop) {
+            this.setContinuousMode() 
+        } else {
+            this.setLoopMode();
+        }
+    }
+
+    this.setContinuousMode = function() {
+        this.mode = DDJSR.slicerMode.continuous;
+        for (var i = 0; i < 8; i++) {
+            this.setLED(i, 0);
+        }
+    }
+
+    this.setLoopMode = function() {
+        this.mode = DDJSR.slicerMode.loop;
+        for (var i = 0; i < 8; i++) {
+            this.setLED(i, 0x7F);
+        }
+    }
+
+    this.trackConnection = engine.makeConnection(this.group, 'duration', function(position) {
+        if (slicer.isRunning) {
+            slicer.stop();
+        }
+    });
+
+    this.playConnection = engine.makeConnection(this.group, 'play', function(position) {
+        if (padState.mode === DDJSR.padMode.slicer && !slicer.isRunning) {
+            slicer.start();
+        }
+    });
+
+    this.sampledBeat = null;
+    this.buttonInput = function(channel, control, value, status, group) {
+        if (value === 0) {
+            // button release
+            return;
+        }
+        this.sampledBeat = control - 0x20;
+        engine.log(this.sampledBeat);
+    }
+
+    this.start = function() {
+        this.isRunning = true;
+
+        var sliceStartPos = this.getSlicePositionClosest()
+        var positionPerBeat = this.getPositionPerBeat();
+
+        var currPos = engine.getValue(this.group, 'playposition');
+        var sliceIndex = currPos < sliceStartPos ? -2 : -1;
+        var prevBeat = sliceIndex;
+
+        var loopOn = false;
+        engine.setValue(this.group, 'quantize', true);
+        engine.setValue(this.group, 'beatloop_size', 1);
+
+        this.syncConnection = engine.makeConnection(this.group, 'playposition', function(position) {
+            var posOffset = position - sliceStartPos;
+            var currBeatFloat = posOffset / positionPerBeat + this.lookAheadMargin;
+            var currBeat = Math.floor(currBeatFloat);
+            var currBeatProgress = currBeatFloat - currBeat
+            if (!loopOn && currBeatProgress > 1/32) {
+                // set temporary loop as a visual cue
+                engine.setValue(this.group, 'beatloop_activate', true);
+                loopOn = true;
+            } else if (loopOn) {
+                // loops only serve as a visual cue
+                // immediately exit any loops
+                this.loopExit();
+            }
+            if (currBeat === prevBeat) {
+                // same beat, no change
+                return;
+            }
+            loopOn = false;
+            // new beat occurred
+            // move to user input sampledBeat if non-null, otherwise next sliceIndex
+            sliceIndex++;
+            var offset = 0;
+            if (sliceIndex === 8) {
+                // handle end of slice loop
+                sliceIndex = 0;
+                if (this.mode === DDJSR.slicerMode.continuous) {
+                    sliceStartPos = sliceStartPos + 8 * positionPerBeat;
+                    offset = 8;
+                } else {
+                    // set explicit sample to trigger loop back to start
+                    this.sampledBeat = this.sampledBeat || 0;
+                }
+            }
+            var adjustedSliceIndex = sliceIndex + offset;
+            var adjustedSampledBeat = this.sampledBeat !== null ? this.sampledBeat + offset : null;
+            if (sliceIndex >= 0 && adjustedSampledBeat !== null && adjustedSampledBeat !== adjustedSliceIndex) {
+                this.jumpOffset(adjustedSampledBeat - currBeat);
+                currBeat = adjustedSampledBeat;
+            } else if (currBeat !== adjustedSliceIndex) {
+                this.jumpOffset(adjustedSliceIndex - currBeat);
+                currBeat = adjustedSliceIndex;
+            }
+            currBeat = currBeat % 8;
+            this.sampledBeat = null;
+            this.setLED(prevBeat, this.mode === DDJSR.slicerMode.continuous ? 0 : 0x7F);
+            this.setLED(currBeat, this.mode === DDJSR.slicerMode.continuous ? 0x7F : 0);
+            prevBeat = currBeat;
+        });
+    }
+
+    this.stop = function() {
+        this.isRunning = false;
+        this.syncConnection.disconnect();
+        this.loopExit();
+        engine.setValue(this.group, 'quantize', false);
+        engine.log(this.group)
+        //engine.setValue(this.group, "reloop_toggle", true);
+        //engine.setValue(this.group, 'beatloop_activate', false);
+    }
+
+    this.setLED = function(index, value) {
+        midi.sendShortMsg(0x97, 0x20 + index, value);
+    }
+
+    this.jumpOffset = function(offset) {
+        engine.setValue(this.group, 'beatjump', offset);
+    }
+
+    this.getSlicePositionClosest = function() {
+        var closestSample = engine.getValue(this.group, 'beat_closest');
+        var totalSamples = engine.getValue(this.group, 'track_samples');
+        return closestSample / totalSamples;
+    }
+
+    this.getPositionPerBeat = function() {
+        var secondsPerBeat = 1 / (engine.getValue(this.group, 'bpm') / 60);
+        var secondsPerTrack = engine.getValue(this.group, 'duration');
+        return secondsPerBeat / secondsPerTrack;
+    }
+
+    this.loopExit = function() {
+        if (engine.getValue(this.group, "loop_enabled")) {
+            engine.setValue(this.group, "reloop_toggle", true);
+        }
+    }
 }
 
 DDJSR.Slicer.prototype = components.Component.prototype;

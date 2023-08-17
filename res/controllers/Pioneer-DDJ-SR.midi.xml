@@ -672,6 +672,166 @@
             </control>
             <control>
                 <group>[Channel1]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x90</status>
+                <midino>0x1B</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x90</status>
+                <midino>0x1E</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x90</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x90</status>
+                <midino>0x22</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x91</status>
+                <midino>0x1B</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x91</status>
+                <midino>0x1E</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x91</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x91</status>
+                <midino>0x22</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x92</status>
+                <midino>0x1B</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x92</status>
+                <midino>0x1E</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x92</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel3]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x92</status>
+                <midino>0x22</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x93</status>
+                <midino>0x1B</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x93</status>
+                <midino>0x1E</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x93</status>
+                <midino>0x20</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel4]</group>
+                <key>DDJSR.deck[0].pad.setMode</key>
+                <description>MIDI Learned from 2 messages</description>
+                <status>0x93</status>
+                <midino>0x22</midino>
+                <options>
+                    <Script-Binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
                 <key>DDJSR.deck[0].pad.hotcue[0].input</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
@@ -1312,7 +1472,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[0].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x20</midino>
@@ -1322,7 +1482,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[1].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x21</midino>
@@ -1332,7 +1492,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[2].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x22</midino>
@@ -1342,7 +1502,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[3].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x23</midino>
@@ -1352,7 +1512,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[4].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x24</midino>
@@ -1362,7 +1522,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[5].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x25</midino>
@@ -1372,7 +1532,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[6].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x26</midino>
@@ -1382,7 +1542,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>DDJSR.deck[0].pad.slicer[7].input</key>
+                <key>DDJSR.deck[0].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x97</status>
                 <midino>0x27</midino>
@@ -1392,7 +1552,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[0].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x20</midino>
@@ -1402,7 +1562,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[1].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x21</midino>
@@ -1412,7 +1572,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[2].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x22</midino>
@@ -1422,7 +1582,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[3].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x23</midino>
@@ -1432,7 +1592,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[4].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x24</midino>
@@ -1442,7 +1602,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[5].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x25</midino>
@@ -1452,7 +1612,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[6].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x26</midino>
@@ -1462,7 +1622,7 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>DDJSR.deck[1].pad.slicer[7].input</key>
+                <key>DDJSR.deck[1].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x98</status>
                 <midino>0x27</midino>
@@ -1472,7 +1632,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[0].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x20</midino>
@@ -1482,7 +1642,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[1].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x21</midino>
@@ -1492,7 +1652,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[2].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x22</midino>
@@ -1502,7 +1662,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[3].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x23</midino>
@@ -1512,7 +1672,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[4].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x24</midino>
@@ -1522,7 +1682,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[5].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x25</midino>
@@ -1532,7 +1692,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[6].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x26</midino>
@@ -1542,7 +1702,7 @@
             </control>
             <control>
                 <group>[Channel3]</group>
-                <key>DDJSR.deck[2].pad.slicer[7].input</key>
+                <key>DDJSR.deck[2].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x99</status>
                 <midino>0x27</midino>
@@ -1552,7 +1712,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[0].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x20</midino>
@@ -1562,7 +1722,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[1].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x21</midino>
@@ -1572,7 +1732,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[2].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x22</midino>
@@ -1582,7 +1742,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[3].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x23</midino>
@@ -1592,7 +1752,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[4].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x24</midino>
@@ -1602,7 +1762,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[5].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x25</midino>
@@ -1612,7 +1772,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[6].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x26</midino>
@@ -1622,7 +1782,7 @@
             </control>
             <control>
                 <group>[Channel4]</group>
-                <key>DDJSR.deck[3].pad.slicer[7].input</key>
+                <key>DDJSR.deck[3].pad.slicer.buttonInput</key>
                 <description>MIDI Learned from 2 messages</description>
                 <status>0x9A</status>
                 <midino>0x27</midino>
