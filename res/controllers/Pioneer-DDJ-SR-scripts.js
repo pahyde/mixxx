@@ -150,8 +150,72 @@ DDJSR.pad = function(deckNumber, midiChannel) {
         mode: DDJSR.padMode.hotCue,
         loopSet: DDJSR.loopType.none
     }
-
     
+    this.autoLoop = new components.Button({
+        midi: [0x90 + midiChannel, 0x14],
+        inKey: "reloop_toggle",
+        outKey: "loop_enabled",
+        type: components.Button.prototype.types.toggle,
+        input: function(channel, control, value, status, group) {
+            if (value) {
+                if (engine.getValue(group, 'loop_enabled')) {
+                    engine.setValue(group, 'reloop_toggle', true);
+                } else {
+                    engine.setValue(group, 'quantize', true);
+                    engine.setValue(group, 'beatloop_activate', true);
+                }
+            }
+        }
+    });
+
+    this.halfLoopSize = new components.Button({
+        midi: [0x90 + midiChannel, 0x12],
+        type: components.Button.prototype.types.push,
+        inKey: 'beatloop_size',
+        input: function(channel, control, value, status, group) {
+            this.send(value);
+            var isPress = value > 0;
+            if (isPress) {
+                var currBeatLoopSize = engine.getValue(this.group, this.inKey)
+                this.inSetValue(Math.max(1/32, currBeatLoopSize / 2));
+            }
+        }
+    })
+    this.doubleLoopSize = new components.Button({
+        midi: [0x90 + midiChannel, 0x13],
+        type: components.Button.prototype.types.push,
+        inKey: 'beatloop_size',
+        input: function(channel, control, value, status, group) {
+            this.send(value);
+            var isPress = value > 0;
+            if (isPress) {
+                var currBeatLoopSize = engine.getValue(this.group, this.inKey)
+                this.inSetValue(Math.min(32, currBeatLoopSize * 2));
+            }
+        }
+    })
+
+    this.loopIn = new components.Button({
+        midi: [0x90 + midiChannel, 0x61],
+        key: 'loop_in',
+        type: components.Button.prototype.types.toggle,
+        input: function(channel, control, value, status, group) {
+            engine.setValue(group, 'quantize', false);
+            padState.loopSet = DDJSR.loopType.manual;
+            this.inSetValue(this.isPress(channel, control, value, status))
+        }
+    })
+
+    this.loopOut = new components.Button({
+        midi: [0x90 + midiChannel, 0x62],
+        key: 'loop_out',
+        type: components.Button.prototype.types.toggle,
+        input: function(channel, control, value, status, group) {
+            engine.setValue(group, 'quantize', false);
+            padState.loopSet = DDJSR.loopType.manual;
+            this.inSetValue(this.isPress(channel, control, value, status))
+        }
+    })
 
     this.setMode = function(channel, control, value, status, group) {
         var isPress = value > 0;
