@@ -137,12 +137,21 @@ DDJSR.padMode = {
 
 DDJSR.looprollIntervals = [1/16, 1/8, 1/4, 1/2, 1, 2, 4, 8];
 
+DDJSR.loopType = {
+    none: 0,
+    auto: 1, 
+    manual: 2
+}
+
 DDJSR.pad = function(deckNumber, midiChannel) {
     components.ComponentContainer.call(this, null);
 
     var padState = { 
-        mode: DDJSR.padMode.hotCue 
+        mode: DDJSR.padMode.hotCue,
+        loopSet: DDJSR.loopType.none
     }
+
+    
 
     this.setMode = function(channel, control, value, status, group) {
         var isPress = value > 0;
@@ -237,15 +246,17 @@ DDJSR.Slicer = function(deckNumber, padState) {
     this.setContinuousMode = function() {
         this.mode = DDJSR.slicerMode.continuous;
         for (var i = 0; i < 8; i++) {
-            this.setLED(i, 0);
+            this.setLED(this.channel, i, 0);
         }
+        this.setLED(this.channel, this.activeBeat, 0x7F);
     }
 
     this.setLoopMode = function() {
         this.mode = DDJSR.slicerMode.loop;
         for (var i = 0; i < 8; i++) {
-            this.setLED(i, 0x7F);
+            this.setLED(this.channel, i, 0x7F);
         }
+        this.setLED(this.channel, this.activeBeat, 0);
     }
 
     this.trackConnection = engine.makeConnection(this.group, 'duration', function(position) {
@@ -260,6 +271,7 @@ DDJSR.Slicer = function(deckNumber, padState) {
         }
     });
 
+    this.activeBeat = null;
     this.sampledBeat = null;
     this.buttonInput = function(channel, control, value, status, group) {
         if (value === 0) {
@@ -278,7 +290,7 @@ DDJSR.Slicer = function(deckNumber, padState) {
 
         var currPos = engine.getValue(this.group, 'playposition');
         var sliceIndex = currPos < sliceStartPos ? -2 : -1;
-        var activeBeat = sliceIndex;
+        this.activeBeat = sliceIndex;
 
         var beatUpdate = false;
         var loopOn = false;
@@ -289,7 +301,7 @@ DDJSR.Slicer = function(deckNumber, padState) {
         state varables:
             - sliceStartPos: start position of the slice loop
             - sliceIndex: 0 - 7
-            - activeBeat: the state of the current playing beat maintained by the slicer (relative to start position)
+            - this.activeBeat: the state of the current playing beat maintained by the slicer (relative to start position)
             - trackBeat: the actual current beat playing in the track (relative to start position)
             - this.sampledBeat: the user input beat to jump to
         */
@@ -298,9 +310,9 @@ DDJSR.Slicer = function(deckNumber, padState) {
             var trackBeatFloat = posOffset / positionPerBeat + this.lookAheadMargin;
             var trackBeat = Math.floor(trackBeatFloat);
             var trackBeatProgress = trackBeatFloat - trackBeat
-            if (beatUpdate && trackBeatProgress > 1/32) {
+            if (beatUpdate && trackBeatProgress > 1/128) {
                 // set temporary loop as a visual cue
-                engine.setValue(this.group, 'beatloop_activate', true);
+                //engine.setValue(this.group, 'beatloop_activate', true);
                 beatUpdate = false;
                 loopOn = true;
             } else if (loopOn) {
@@ -309,7 +321,7 @@ DDJSR.Slicer = function(deckNumber, padState) {
                 this.loopExit();
                 loopOn = false;
             }
-            if (trackBeat === activeBeat) {
+            if (trackBeat === this.activeBeat) {
                 // same beat, no change
                 return;
             }
@@ -321,7 +333,7 @@ DDJSR.Slicer = function(deckNumber, padState) {
                 sliceIndex -= 8
                 if (this.mode === DDJSR.slicerMode.continuous) {
                     sliceStartPos += 8 * positionPerBeat;
-                    activeBeat -= 8
+                    this.activeBeat -= 8
                     trackBeat -= 8
                     // Note: sampledBeat gets rolled forward with start position. no update.
                 }
@@ -348,11 +360,11 @@ DDJSR.Slicer = function(deckNumber, padState) {
                 this.jumpBeats(nextActiveBeat - trackBeat)
             }
 
-            var activeLED = activeBeat < 0 ? activeBeat + 8 : activeBeat;
+            var activeLED = this.activeBeat < 0 ? this.activeBeat + 8 : this.activeBeat;
             var nextActiveLED = nextActiveBeat;
             this.setLED(slicer.channel, activeLED, this.mode === DDJSR.slicerMode.continuous ? 0 : 0x7F);
             this.setLED(slicer.channel, nextActiveLED, this.mode === DDJSR.slicerMode.continuous ? 0x7F : 0);
-            activeBeat = nextActiveBeat;
+            this.activeBeat = nextActiveBeat;
         });
     }
 
